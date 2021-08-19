@@ -248,9 +248,86 @@ namespace Data.Services
         }
 
         #endregion
-        
 
-        //TODO: Find linked experts (search)
+        #region Find Linked Experts
+
+        /// <summary>
+        /// Searches the given member's friends list for other members with an expertise that matches the given query
+        /// </summary>
+        /// <param name="ID">ID of the member whose friends should be searched</param>
+        /// <param name="ExpertQuery">The query to filter for expertise</param>
+        /// <returns>
+        /// A list of all connections found,
+        /// Each connection is a list of Members with the first being the given member and the last being the member that matches the expertise
+        /// </returns>
+        public static List<List<Member>> FindLinkedExperts(long ID, string ExpertQuery)
+        {
+            return FindLinkedExperts(GetMember(ID), ExpertQuery);
+        }
+
+        /// <summary>
+        /// Searches the given member's friends list for other members with an expertise that matches the given query
+        /// </summary>
+        /// <param name="PrimaryMember">The member whose friends should be searched</param>
+        /// <param name="ExpertQuery">The query to filter for expertise</param>
+        /// <returns>
+        /// A list of all connections found,
+        /// Each connection is a list of Members with the first being the given member and the last being the member that matches the expertise
+        /// </returns>
+        public static List<List<Member>> FindLinkedExperts(Member PrimaryMember, string ExpertQuery)
+        {
+            //Create a list to be populated with results while searching users
+            var results = new List<List<Member>>();
+
+            //If no query string was given, don't bother searching
+            if (String.IsNullOrWhiteSpace(ExpertQuery))
+                return results;
+
+            //Perform the search
+            FindLinkedExperts(PrimaryMember, ExpertQuery.ToLower(), results, new List<Member>());
+
+            return results;
+        }
+
+        /// <summary>
+        /// Recursively Searches the given member's friends list for other members with an expertise that matches the given query
+        /// </summary>
+        /// <param name="m">The member whose friends should be searched</param>
+        /// <param name="ExpertQuery">The query to filter for expertise</param>
+        /// <param name="results">A list of the results found so far</param>
+        /// <param name="currentChain">A list of the members in the current chain (tree) of friendship relationships</param>
+        private static void FindLinkedExperts(Member m, string ExpertQuery, List<List<Member>> results, List<Member> currentChain)
+        {
+            //A member wasn't found in the data for some reason, don't continue
+            if (m == null)
+                return;
+
+            //Add this member to the chain
+            currentChain.Add(m);
+
+            //Check to see if the user is an expert (has any headings that match the query string)
+            IEnumerable<string> matches = m.Headings.Where(h => h.ToLower().Contains(ExpertQuery));
+
+            if(matches.Any())
+            {
+                //This user is an expert in the field, add them to the results list
+                results.Add(currentChain);
+
+            }
+
+            //Get friends of this friend, only getting thoose that aren't already in the current chain to avoid cyclical chains
+            var otherFriends = m.Friends
+                .Where(f => !currentChain.Any(mem => mem.ID == f))
+                .Select(f => GetMember(f));
+
+            //Go through each and see if they're an expert (and any of their friends, etc.)
+            foreach (Member friend in otherFriends)
+                FindLinkedExperts(friend, ExpertQuery, results, currentChain);
+
+        }
+
+        #endregion
+
 
     }
 }
