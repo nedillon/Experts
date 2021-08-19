@@ -67,12 +67,19 @@ namespace Shared.Operations
             HtmlDocument doc = web.Load(URL);
 
             //Find the header elements in the page
-            var nodes = doc.DocumentNode.SelectNodes("//h1//h2//h3");
+            var nodes = doc.DocumentNode.SelectNodes("//h1 | //h2 | //h3");
 
-            //Return the contents of the nodes
-            return nodes
-                .Select(n => n.InnerHtml)
-                .ToList();
+            if (nodes == null || !nodes.Any())
+                //Return empty list if no nodes found
+                return new string[] { };
+            else
+                //Return the contents of the nodes
+                return nodes
+                    .Select(n => n.InnerText)
+                    .ToList();
+
+            //TODO: InnerText uses escaped characters for things like <, >, etc.
+            //      Need to convert that to plain text
         }
 
     }
