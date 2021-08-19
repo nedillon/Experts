@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Data.Database;
 using Shared.Objects;
+using static Shared.Enumerations;
 
 namespace Data.Services
 {
@@ -104,6 +105,11 @@ namespace Data.Services
         {
             try
             {
+                //Ideally there would be some sort of check to see if the record exists or not
+                //But I don't think name is a good enough unique identifier for that
+                //If we were storing email, I would constrain members to be unique on email
+
+
                 //Create a new record for the member
                 var m = db.Members.NewMembersRow();
 
@@ -155,7 +161,93 @@ namespace Data.Services
 
         #endregion
 
-        //TODO: Create Friendship
+        #region Member Exists
+
+        /// <summary>
+        /// Checks to see if a member already exists in the databse
+        /// </summary>
+        /// <param name="ID">ID of the member to check for</param>
+        /// <returns>True if found, False otherwise</returns>
+        public static bool MemberExists(long ID)
+        {
+            return db.Members.Any(m => m.ID == ID);
+        }
+
+        #endregion
+
+        #region Create Friendship
+
+        /// <summary>
+        /// Creates a friendship between the given members
+        /// </summary>
+        /// <param name="MemberA">ID of the first member</param>
+        /// <param name="MemberB">ID of the second member</param>
+        /// <returns>A CreateFriendshipResult indicating the success of the operation</returns>
+        public static CreateFriendshipResult CreateFriendship(long MemberA, long MemberB)
+        {
+            //Can't be friends with yourself :(
+            if (MemberA == MemberB)
+                return CreateFriendshipResult.DuplicateMember;
+
+            //Make sure the first member is found
+            if (!MemberExists(MemberA))
+                return CreateFriendshipResult.PrimaryMemberNotFound;
+
+            //Make sure the second member is found
+            if (!MemberExists(MemberB))
+                return CreateFriendshipResult.SecondaryMemberNotFound;
+
+            //Make sure the two aren't already friends
+            if (FriendshipExists(MemberA, MemberB))
+                return CreateFriendshipResult.FriendshipExists;
+
+            try
+            {
+                //Create a new record for the database
+                var f = db.Friendships.NewFriendshipsRow();
+
+                //Store friendships with the lower ID as the primary and the higher as the secondary
+                if(MemberA < MemberB)
+                {
+                    f.Primary = MemberA;
+                    f.Secondary = MemberB;
+                }
+                else
+                {
+                    f.Primary = MemberB;
+                    f.Secondary = MemberA;
+                }
+
+                //Add the record (locking to prevent two users adding at the same time)
+                lock (db.Friendships)
+                    db.Friendships.AddFriendshipsRow(f);
+
+                return CreateFriendshipResult.Success;
+            }
+            catch(Exception ex)
+            {
+                //TODO: Log exception
+
+                return CreateFriendshipResult.UnknownError;
+            }
+
+        }
+
+        /// <summary>
+        /// Determines whether or not a friendship exists between the two given members
+        /// </summary>
+        /// <param name="PrimaryFriend">The ID of the first member</param>
+        /// <param name="SecondaryFriend">The ID of the second member</param>
+        /// <returns>True if a friendship between the two members exists, False otherwise</returns>
+        public static bool FriendshipExists(long PrimaryFriend, long SecondaryFriend)
+        {
+            //Need to check to see if the IDs are in either the primary or secondary field
+            return db.Friendships.Any(f => (f.Primary == PrimaryFriend && f.Secondary == SecondaryFriend) ||
+                                            (f.Primary == SecondaryFriend && f.Secondary == PrimaryFriend));
+        }
+
+        #endregion
+        
 
         //TODO: Find linked experts (search)
 
