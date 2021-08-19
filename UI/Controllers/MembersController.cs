@@ -7,6 +7,7 @@ using UI.Models.Members;
 using Data.Services;
 using Shared.Objects;
 using Shared.Operations;
+using System.Text;
 
 namespace UI.Controllers
 {
@@ -60,6 +61,78 @@ namespace UI.Controllers
             }
 
             return View(model);
+        }
+
+        /// <summary>
+        /// Performs the Search while viewing a member
+        /// </summary>
+        /// <param name="id">ID of the member being searched</param>
+        /// <param name="collection">Information from the form</param>
+        /// <returns>The Views.Members.View Page with search results</returns>
+        /// <remarks>POST: Member/View/5 (search)</remarks>
+        [HttpPost]
+        public ActionResult View(long id, FormCollection collection)
+        {
+            //Note: If I had more time, this wouldn't be a post. It would be a client-side ajax call.
+            //      I was running low on time and this was easier
+
+            MemberView model = null;
+
+            try
+            {
+                model = new MemberView();
+
+                //Gets the search query string
+                UpdateModel<MemberView>(model);
+
+                var results = MemberService.FindLinkedExperts(id, model.Search);
+
+                if(results != null && results.Any())
+                {
+                    //If experts were found, create a list for each chain found
+
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.AppendLine("<ul>");
+
+                    foreach(List<Member> result in results)
+                    {
+
+                        //For each chain, create a string showing the result e.g.:
+                        //  Member -> Friend A -> Friend B (Expertise A, Expertise B)
+
+                        sb.AppendLine("<li>");
+
+                        sb.Append(String.Join(" -> ", result.Select(mem => mem.Name)));
+                        sb.Append(" (");
+                        sb.Append(String.Join(", ", result.Last().Headings));
+                        sb.Append(")");
+                        sb.AppendLine();
+
+                        sb.AppendLine("</li>");
+                    }
+
+                    sb.AppendLine("</ul>");
+
+                    model.SearchResults = sb.ToString();
+                }
+                else
+                {
+                    model.SearchResults = "<p>No experts found</p>";
+                }
+
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                //TODO: Log error
+
+                if (model == null)
+                    model = new MemberView();
+
+
+                return View(model);
+            }
         }
 
         /// <summary>
