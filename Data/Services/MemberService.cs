@@ -313,6 +313,11 @@ namespace Data.Services
                 //This user is an expert in the field, add them to the results list
                 results.Add(currentChain);
 
+                //Only return the Headings that matched the query
+                m.Headings = matches.ToList();
+
+                //I suppose you could return here and not continue evaluating their friends,
+                //but decided to continue to find all possible paths
             }
 
             //Get friends of this friend, only getting thoose that aren't already in the current chain to avoid cyclical chains
@@ -322,7 +327,7 @@ namespace Data.Services
 
             //Go through each and see if they're an expert (and any of their friends, etc.)
             foreach (Member friend in otherFriends)
-                FindLinkedExperts(friend, ExpertQuery, results, currentChain);
+                FindLinkedExperts(friend, ExpertQuery, results, new List<Member>(currentChain));
 
         }
 
