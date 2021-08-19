@@ -41,5 +41,15 @@ namespace UI.Models.Members
         /// </summary>
         public List<MemberFriend> Friends { get; set; }
 
+        /// <summary>
+        /// Search/Query string
+        /// </summary>
+        public string Search { get; set; }
+
+        /// <summary>
+        /// Search results
+        /// </summary>
+        public string SearchResults { get; set; }
+
     }
 }

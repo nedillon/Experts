@@ -68,6 +68,17 @@
             </dd>
 
         </dl>
+        <div>
+            <p>Find experts in @Html.Raw(Model.Name)'s network</p>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Search, new { htmlAttributes = new { @class = "form-control", @style = "display:inline" } })
+                <input type="submit" value="Search" class="btn btn-default" style="display:inline" />
+                @if (!String.IsNullOrWhiteSpace(Model.SearchResults))
+                {
+                    @Html.Raw(Model.SearchResults)
+                }
+            </div>
+        </div>
     }
     else
     {
