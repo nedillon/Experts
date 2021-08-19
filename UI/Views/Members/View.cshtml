@@ -5,86 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    @if (Model.Name != null)
-    {
-        <h2>@Model.Name</h2>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+    <div>
+        @if (Model.Name != null)
+        {
+            <h2>@Model.Name</h2>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Website)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Website)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Website)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ShortURL)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Website)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.ShortURL)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ShortURL)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Headings)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ShortURL)
+                </dd>
 
-            <dd>
-                @if (Model.Headings.Any())
-                {
-                    <ul style="padding-left:10px">
-                        @foreach (string h in Model.Headings)
-                        {
-                            <li>@h</li>
-                        }
-                    </ul>
-                }
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Headings)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Friends)
-            </dt>
+                <dd>
+                    @if (Model.Headings.Any())
+                    {
+                        <ul style="padding-left:10px">
+                            @foreach (string h in Model.Headings)
+                            {
+                                <li>@h</li>
+                            }
+                        </ul>
+                    }
+                </dd>
 
-            <dd>
-                @if (Model.Friends.Any())
-                {
-                    <ul style="padding-left:10px">
-                        @foreach (var f in Model.Friends)
-                        {
-                            <li>@Html.ActionLink(f.Name, "View", new { id = f.ID })</li>
-                        }
-                    </ul>
-                }
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Friends)
+                </dt>
 
-        </dl>
-        <div>
-            <p>Find experts in @Html.Raw(Model.Name)'s network</p>
-            <div class="form-group">
-                @Html.EditorFor(model => model.Search, new { htmlAttributes = new { @class = "form-control", @style = "display:inline" } })
-                <input type="submit" value="Search" class="btn btn-default" style="display:inline" />
-                @if (!String.IsNullOrWhiteSpace(Model.SearchResults))
-                {
-                    @Html.Raw(Model.SearchResults)
-                }
+                <dd>
+                    @if (Model.Friends.Any())
+                    {
+                        <ul style="padding-left:10px">
+                            @foreach (var f in Model.Friends)
+                            {
+                                <li>@Html.ActionLink(f.Name, "View", new { id = f.ID })</li>
+                            }
+                        </ul>
+                    }
+                </dd>
+
+            </dl>
+            <div>
+                <p>Find experts in @Html.Raw(Model.Name)'s network</p>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.Search, new { htmlAttributes = new { @class = "form-control", @style = "display:inline" } })
+                    <input type="submit" value="Search" class="btn btn-default" style="display:inline" />
+                    @if (!String.IsNullOrWhiteSpace(Model.SearchResults))
+                    {
+                        @Html.Raw(Model.SearchResults)
+                    }
+                </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <h4>Member not found</h4>
-    }
-</div>
+        }
+        else
+        {
+            <h4>Member not found</h4>
+        }
+    </div>
+}
+
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>

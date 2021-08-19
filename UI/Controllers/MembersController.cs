@@ -85,6 +85,22 @@ namespace UI.Controllers
                 //Gets the search query string
                 UpdateModel<MemberView>(model);
 
+                //Need to load the member again
+                //(since I designed the page to view only initially, this wouldn't be necessary with an ajax call)
+                Member m = MemberService.GetMember(id);
+                if (m != null)
+                {
+                    model.ID = m.ID;
+                    model.Name = m.Name;
+                    model.Website = m.Website;
+                    model.ShortURL = m.ShortURL;
+                    model.Headings = m.Headings.ToList();
+                    model.Friends = m.Friends
+                        .Select(f => MemberService.GetMember(f))
+                        .Select(f => new MemberFriend() { ID = f.ID, Name = f.Name })
+                        .ToList();
+                }
+
                 var results = MemberService.FindLinkedExperts(id, model.Search);
 
                 if(results != null && results.Any())
@@ -198,6 +214,5 @@ namespace UI.Controllers
 
         //TODO: Add Friends
 
-        //TODO: Search for Experts
       }
 }

@@ -286,7 +286,8 @@ namespace Data.Services
             //Perform the search
             FindLinkedExperts(PrimaryMember, ExpertQuery.ToLower(), results, new List<Member>());
 
-            return results;
+            //Sort so that smaller chains are first
+            return results.OrderBy(l => l.Count).ToList();
         }
 
         /// <summary>
