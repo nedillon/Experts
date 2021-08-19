@@ -61,6 +61,16 @@ namespace UI.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Displays the blank Add member page
+        /// </summary>
+        /// <returns>The Views.Members.Add page</returns>
+        /// <remarks>GET: Members/Add</remarks>
+        public ActionResult Add()
+        {
+            return View(new MemberAdd());
+        }
+
         //TODO: Add Member
 
         //TODO: Add Friends
