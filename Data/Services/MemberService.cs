@@ -145,7 +145,8 @@ namespace Data.Services
                 //If the member has friends, add those records as well
                 if(Friends != null)
                 {
-                    //TODO: Add the friend records. (reuse code to come below)
+                    foreach (long friend in Friends)
+                        CreateFriendship(m.ID, friend);
                 }
 
                 return m.ID;
