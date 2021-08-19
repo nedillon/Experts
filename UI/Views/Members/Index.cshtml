@@ -22,9 +22,9 @@
     {
         <tr>
             <td>@member.Name</td>
-            <td>@member.ShortURL</td>
+            <td><a href="@member.ShortURL">@member.ShortURL</a></td>
             <td>@member.FriendCount</td>
-            <td></td>
+            <td>@Html.ActionLink("View", "View", new { id = member.ID })</td>
         </tr>
     }
 </table>

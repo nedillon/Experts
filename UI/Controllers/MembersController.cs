@@ -30,6 +30,10 @@ namespace UI.Controllers
         }
 
         //TODO: View Member
+        public ActionResult View(long id)
+        {
+            return View();
+        }
 
         //TODO: Add Member
 
