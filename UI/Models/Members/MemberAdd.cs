@@ -22,7 +22,13 @@ namespace UI.Models.Members
         /// Website URL
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} is required")]
+        [Url(ErrorMessage = "Invalid URL")]
         public string Website { get; set; }
+
+        /// <summary>
+        /// Whether or not there was an error adding the memeber
+        /// </summary>
+        public bool Error { get; set; }
 
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using UI.Models.Members;
 using Data.Services;
 using Shared.Objects;
+using Shared.Operations;
 
 namespace UI.Controllers
 {
@@ -71,10 +72,59 @@ namespace UI.Controllers
             return View(new MemberAdd());
         }
 
-        //TODO: Add Member
+        /// <summary>
+        /// Attempts to add the new member when the user clicks the add button
+        /// </summary>
+        /// <param name="collection">Data from the page</param>
+        /// <returns>
+        /// If successful, The Views.Members.Index Page
+        /// If unsuccessful, The Views.Members.Add Page with errors listed
+        /// </returns>
+        /// <remarks>POST: Members/Add</remarks>
+        [HttpPost]
+        public ActionResult Add(FormCollection collection)
+        {
+            MemberAdd model = null;
+
+            try
+            {
+                //Get the data entered on the page
+                model = new MemberAdd();
+                UpdateModel<MemberAdd>(model);
+
+                //Create the new member instance (parsing/shortening the URL)
+                Member newMember = MemberOperations.CreateNewMember(model.Name, model.Website);
+
+                //Try to add the member to the database
+                if (MemberService.AddMember(newMember) < 0)
+                {
+                    //If unsuccessful, show an error
+                    model.Error = true;
+                    return View(model);
+                }
+                else
+                {
+                    //If successful, go back to the list page
+                    return RedirectToAction("Index");
+                }
+            }
+            catch(Exception ex)
+            {
+                //TODO: Log Error
+
+                if (model == null)
+                    model = new MemberAdd();
+
+                model.Error = true;
+
+                return View(model);
+            }
+            
+
+        }
 
         //TODO: Add Friends
 
         //TODO: Search for Experts
-    }
+      }
 }
