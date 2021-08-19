@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace Shared.Operations
 {
@@ -54,9 +55,24 @@ namespace Shared.Operations
             }
         }
 
+        /// <summary>
+        /// Loads the given URL and parses it to find any h1, h2, or h3 elements
+        /// </summary>
+        /// <param name="URL">The URL to parse</param>
+        /// <returns>A list of the contents of any h1, h2, or h3 elements found</returns>
         public static IEnumerable<string> ParseHeaders(string URL)
         {
-            return null;
+            //Load the page
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument doc = web.Load(URL);
+
+            //Find the header elements in the page
+            var nodes = doc.DocumentNode.SelectNodes("//h1//h2//h3");
+
+            //Return the contents of the nodes
+            return nodes
+                .Select(n => n.InnerHtml)
+                .ToList();
         }
 
     }
