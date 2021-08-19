@@ -222,7 +222,52 @@ namespace UI.Controllers
             return View(new AddFriends());
         }
 
-        //TODO: Add Friends
+        [HttpPost]
+        public ActionResult AddFriends(FormCollection collection)
+        {
+            AddFriends model = null;
 
-      }
+            try
+            {
+                model = new AddFriends();
+
+                //Get the data entered on the form
+                UpdateModel<AddFriends>(model);
+
+                //Try to create the friendship
+                var result = MemberService.CreateFriendship(model.PrimaryID, model.SecondaryID);
+
+
+                //TODO: These aren't very good response messages
+                //If I had a little bit more time, I would decorate the enumeration values with Description attributes that give a more user-friendly message
+                //I would then create a function that gets the description based on the attribute. The message would be set to that instead.
+
+                if(result == Shared.Enumerations.CreateFriendshipResult.Success)
+                {
+                    ModelState.Clear();
+                    model = new AddFriends();
+                    model.Message = "Success";
+                }
+                else
+                {
+                    //Go back to the page and show the error message
+                    model.ErrorMessage = result.ToString();
+                }
+
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                //TODO: Log error
+
+                if (model == null)
+                    model = new AddFriends();
+
+                model.ErrorMessage = Shared.Enumerations.CreateFriendshipResult.UnknownError.ToString();
+
+                return View(model);
+            }
+        }
+
+    }
 }
