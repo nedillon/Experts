@@ -10,7 +10,7 @@ namespace Shared.Objects
     /// A representation of a member.
     /// This class will be used throughout the system (front-end, back-end, and shared functionality) to pass information about a member
     /// </summary>
-    class Member
+    public class Member
     {
         /// <summary>
         /// Member ID
