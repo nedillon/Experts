@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using UI.Models.Members;
 using Data.Services;
+using Shared.Objects;
 
 namespace UI.Controllers
 {
@@ -29,10 +30,35 @@ namespace UI.Controllers
             return View(model);
         }
 
-        //TODO: View Member
+        /// <summary>
+        /// Gets the view displaying a single member
+        /// </summary>
+        /// <param name="id">The ID of the member to load</param>
+        /// <returns>The Views.Members.View page</returns>
+        /// <remarks>GET: Members/View/{id}</remarks>
         public ActionResult View(long id)
         {
-            return View();
+            //Create a new model for the view
+            MemberView model = new MemberView();
+
+            //Get the member from the database
+            Member m = MemberService.GetMember(id);
+
+            //If the member was found, set values in the model according to the member
+            if(m != null)
+            {
+                model.ID = m.ID;
+                model.Name = m.Name;
+                model.Website = m.Website;
+                model.ShortURL = m.ShortURL;
+                model.Headings = m.Headings;
+                model.Friends = m.Friends
+                    .Select(f => MemberService.GetMember(f))
+                    .Select(f => new MemberFriend() { ID = f.ID, Name = f.Name })
+                    .ToList();
+            }
+
+            return View(model);
         }
 
         //TODO: Add Member
