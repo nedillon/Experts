@@ -54,5 +54,10 @@ namespace Shared.Operations
             }
         }
 
+        public static IEnumerable<string> ParseHeaders(string URL)
+        {
+            return null;
+        }
+
     }
 }
