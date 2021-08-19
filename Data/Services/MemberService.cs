@@ -14,7 +14,7 @@ namespace Data.Services
     public static class MemberService
     {
 
-        #region Get Member
+        #region Get Member(s)
 
         /// <summary>
         /// Gets a member instance for the member with the given ID
@@ -30,6 +30,29 @@ namespace Data.Services
             if (memberRecord == null)
                 return null;
 
+            //Load the instane from the data record
+            return LoadMember(memberRecord);
+        }
+
+        /// <summary>
+        /// Gets all members in the database
+        /// </summary>
+        /// <returns>A list of Member instances, one for each member in the database</returns>
+        public static List<Member> GetAllMembers()
+        {
+            //Get all members from the database and load instances from each record
+            return db.Members
+                .Select(m => LoadMember(m))
+                .ToList();
+        }
+
+        /// <summary>
+        /// Creates a Member instance from the data in the given Member data record
+        /// </summary>
+        /// <param name="memberRecord">DataRow from the Members table</param>
+        /// <returns>A new Member instance with properties set from the given data record</returns>
+        private static Member LoadMember(ExpertData.MembersRow memberRecord)
+        {
             //Create the instance and set the basic values
             Member member = new Member()
             {
@@ -56,8 +79,6 @@ namespace Data.Services
 
         #endregion
 
-
-        //TODO: Get Members
 
         //TODO: Add Member
 
