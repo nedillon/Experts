@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Enumerations.cs" />
     <Compile Include="Objects\Member.cs" />
+    <Compile Include="Operations\General.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
