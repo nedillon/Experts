@@ -79,8 +79,81 @@ namespace Data.Services
 
         #endregion
 
+        #region Add Member
 
-        //TODO: Add Member
+        /// <summary>
+        /// Add the given member to the database
+        /// </summary>
+        /// <param name="m">The member to add</param>
+        /// <returns>The new member ID, if successful, -1 if unsuccessful</returns>
+        public static long AddMember(Member m)
+        {
+            return AddMember(m.Name, m.Website, m.ShortURL, m.Headings, m.Friends);
+        }
+
+        /// <summary>
+        /// Add a member to the database with the given values
+        /// </summary>
+        /// <param name="Name">Name of the member</param>
+        /// <param name="Website">Original (long) website URL</param>
+        /// <param name="ShortURL">Shortened website URL</param>
+        /// <param name="Headings">List of headings parsed (areas of expertise)</param>
+        /// <param name="Friends">List of friend IDs</param>
+        /// <returns>The new member ID, if successful, -1 if unsuccessful</returns>
+        public static long AddMember(string Name, string Website, string ShortURL, IEnumerable<string> Headings, IEnumerable<long> Friends)
+        {
+            try
+            {
+                //Create a new record for the member
+                var m = db.Members.NewMembersRow();
+
+                //Set the member values
+                m.Name = Name;
+                m.WebSite = Website;
+                m.ShortURL = ShortURL;
+
+                //Lock the table to prevent more than one insert at the same time
+                //(this would be transaction if using SQL, and the lock would extend until the end of the function)
+                lock(db.Members)
+                {
+                    //Add the member to the database
+                    db.Members.AddMembersRow(m);
+                }
+
+                //If the member has headings, add those records as well
+                if(Headings != null)
+                {
+                    foreach(string heading in Headings)
+                    {
+                        var h = db.MemberHeadings.NewMemberHeadingsRow();
+                        h.MemberID = m.ID;
+                        h.Heading = heading;
+
+                        lock(db.MemberHeadings)
+                        {
+                            db.MemberHeadings.AddMemberHeadingsRow(h);
+                        }
+                    }
+                }
+
+                //If the member has friends, add those records as well
+                if(Friends != null)
+                {
+                    //TODO: Add the friend records. (reuse code to come below)
+                }
+
+                return m.ID;
+            }
+            catch(Exception ex)
+            {
+                //TODO: Log the exception
+
+                //Note that an error occurred
+                return -1;
+            }
+        }
+
+        #endregion
 
         //TODO: Create Friendship
 
