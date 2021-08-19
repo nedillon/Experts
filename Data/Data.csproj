@@ -42,9 +42,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="ExpertData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpertData.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MemberService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ExpertData.xsc">
+      <DependentUpon>ExpertData.xsd</DependentUpon>
+    </None>
+    <None Include="ExpertData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ExpertData.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ExpertData.xss">
+      <DependentUpon>ExpertData.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

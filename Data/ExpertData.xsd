@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ExpertData" targetNamespace="http://tempuri.org/ExpertData.xsd" xmlns:mstns="http://tempuri.org/ExpertData.xsd" xmlns="http://tempuri.org/ExpertData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ExpertData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ExpertData" msprop:Generator_UserDSName="ExpertData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Members" msprop:Generator_TableClassName="MembersDataTable" msprop:Generator_TableVarName="tableMembers" msprop:Generator_TablePropName="Members" msprop:Generator_RowDeletingName="MembersRowDeleting" msprop:Generator_RowChangingName="MembersRowChanging" msprop:Generator_RowEvHandlerName="MembersRowChangeEventHandler" msprop:Generator_RowDeletedName="MembersRowDeleted" msprop:Generator_UserTableName="Members" msprop:Generator_RowChangedName="MembersRowChanged" msprop:Generator_RowEvArgName="MembersRowChangeEvent" msprop:Generator_RowClassName="MembersRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="WebSite" msprop:Generator_ColumnVarNameInTable="columnWebSite" msprop:Generator_ColumnPropNameInRow="WebSite" msprop:Generator_ColumnPropNameInTable="WebSiteColumn" msprop:Generator_UserColumnName="WebSite" type="xs:string" minOccurs="0" />
+              <xs:element name="ShortURL" msprop:Generator_ColumnVarNameInTable="columnShortURL" msprop:Generator_ColumnPropNameInRow="ShortURL" msprop:Generator_ColumnPropNameInTable="ShortURLColumn" msprop:Generator_UserColumnName="ShortURL" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MemberHeadings" msprop:Generator_TableClassName="MemberHeadingsDataTable" msprop:Generator_TableVarName="tableMemberHeadings" msprop:Generator_TablePropName="MemberHeadings" msprop:Generator_RowDeletingName="MemberHeadingsRowDeleting" msprop:Generator_RowChangingName="MemberHeadingsRowChanging" msprop:Generator_RowEvHandlerName="MemberHeadingsRowChangeEventHandler" msprop:Generator_RowDeletedName="MemberHeadingsRowDeleted" msprop:Generator_UserTableName="MemberHeadings" msprop:Generator_RowChangedName="MemberHeadingsRowChanged" msprop:Generator_RowEvArgName="MemberHeadingsRowChangeEvent" msprop:Generator_RowClassName="MemberHeadingsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+              <xs:element name="MemberID" msprop:Generator_ColumnVarNameInTable="columnMemberID" msprop:Generator_ColumnPropNameInRow="MemberID" msprop:Generator_ColumnPropNameInTable="MemberIDColumn" msprop:Generator_UserColumnName="MemberID" type="xs:long" minOccurs="0" />
+              <xs:element name="Heading" msprop:Generator_ColumnVarNameInTable="columnHeading" msprop:Generator_ColumnPropNameInRow="Heading" msprop:Generator_ColumnPropNameInTable="HeadingColumn" msprop:Generator_UserColumnName="Heading" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Friendships" msprop:Generator_TableClassName="FriendshipsDataTable" msprop:Generator_TableVarName="tableFriendships" msprop:Generator_TablePropName="Friendships" msprop:Generator_RowDeletingName="FriendshipsRowDeleting" msprop:Generator_RowChangingName="FriendshipsRowChanging" msprop:Generator_RowEvHandlerName="FriendshipsRowChangeEventHandler" msprop:Generator_RowDeletedName="FriendshipsRowDeleted" msprop:Generator_UserTableName="Friendships" msprop:Generator_RowChangedName="FriendshipsRowChanged" msprop:Generator_RowEvArgName="FriendshipsRowChangeEvent" msprop:Generator_RowClassName="FriendshipsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Primary" msprop:Generator_ColumnVarNameInTable="columnPrimary" msprop:Generator_ColumnPropNameInRow="Primary" msprop:Generator_ColumnPropNameInTable="PrimaryColumn" msprop:Generator_UserColumnName="Primary" type="xs:long" />
+              <xs:element name="Secondary" msprop:Generator_ColumnVarNameInTable="columnSecondary" msprop:Generator_ColumnPropNameInRow="Secondary" msprop:Generator_ColumnPropNameInTable="SecondaryColumn" msprop:Generator_UserColumnName="Secondary" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Members" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="MemberHeadings_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MemberHeadings" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="Friendships_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Friendships" />
+      <xs:field xpath="mstns:Primary" />
+      <xs:field xpath="mstns:Secondary" />
+    </xs:unique>
+    <xs:keyref name="FK_Members_MemberHeadings" refer="Constraint1" msprop:rel_Generator_UserChildTable="MemberHeadings" msprop:rel_Generator_ChildPropName="GetMemberHeadingsRows" msprop:rel_Generator_UserRelationName="FK_Members_MemberHeadings" msprop:rel_Generator_ParentPropName="MembersRow" msprop:rel_Generator_RelationVarName="relationFK_Members_MemberHeadings" msprop:rel_Generator_UserParentTable="Members">
+      <xs:selector xpath=".//mstns:MemberHeadings" />
+      <xs:field xpath="mstns:MemberID" />
+    </xs:keyref>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="Members_Friendships" msdata:parent="Members" msdata:child="Friendships" msdata:parentkey="ID" msdata:childkey="Primary" msprop:Generator_UserChildTable="Friendships" msprop:Generator_ChildPropName="GetFriendshipsRowsByMembers_Friendships" msprop:Generator_UserRelationName="Members_Friendships" msprop:Generator_ParentPropName="MembersRowByMembers_Friendships" msprop:Generator_RelationVarName="relationMembers_Friendships" msprop:Generator_UserParentTable="Members" />
+      <msdata:Relationship name="Members_Friendships1" msdata:parent="Members" msdata:child="Friendships" msdata:parentkey="ID" msdata:childkey="Secondary" msprop:Generator_UserChildTable="Friendships" msprop:Generator_ChildPropName="GetFriendshipsRowsByMembers_Friendships1" msprop:Generator_UserRelationName="Members_Friendships1" msprop:Generator_ParentPropName="MembersRowByMembers_Friendships1" msprop:Generator_RelationVarName="relationMembers_Friendships1" msprop:Generator_UserParentTable="Members" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>
