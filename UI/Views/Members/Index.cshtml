@@ -1,0 +1,30 @@
+﻿@model UI.Models.Members.MemberList
+
+@{
+    ViewBag.Title = "Current Members";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Current Members</h2>
+
+<p>
+    @Html.ActionLink("Add New", "Add")
+</p>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Website</th>
+        <th>Friends</th>
+        <th></th>
+    </tr>
+    @foreach(var member in Model.Members)
+    {
+        <tr>
+            <td>@member.Name</td>
+            <td>@member.ShortURL</td>
+            <td>@member.FriendCount</td>
+            <td>@Html.Action("View", "View", new { id = member.ID })</td>
+        </tr>
+    }
+</table>
