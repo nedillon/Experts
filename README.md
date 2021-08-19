@@ -1,3 +1,14 @@
+### Solution Overview:
+* This was written using Visual Studio 2019, targeting .NET Framework 4.8
+* Data: The data layer. Handles reading and writing records from the "database"
+* Data.Test: Unit tests for the Data project (incomplete)
+* Shared: The business layer. Handles business logic throughout the solution
+* Shared.Test: Unit tests for the Shared project
+* UI: An ASP.NET MVC Web Site. Most all of the processing happens in Controllers.ModelsController
+
+### Status:
+I believe all of the requirements are at least functional. The UI is basic just as it comes with MVC so there could be a lot of improvement there. Unit tests are incomplete, but I added a few so I could easily debug and to give you an idea of where I was going with it. With more time, I would also implement more robust error handling (and logging).
+
 ### Project: 
 Using .NET, we'd like you to create a simple experts directory search tool. The tool can either be
 a full featured application or API only.
