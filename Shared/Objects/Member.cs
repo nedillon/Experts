@@ -12,7 +12,36 @@ namespace Shared.Objects
     /// </summary>
     class Member
     {
+        /// <summary>
+        /// Member ID
+        /// </summary>
+        public long ID { get; set; }
+        
+        /// <summary>
+        /// Member name
+        /// </summary>
+        public string Name { get; set; }
 
-        //TODO: Properties
+        /// <summary>
+        /// Original (long) URL of the member's website
+        /// </summary>
+        public string Website { get; set; }
+
+        /// <summary>
+        /// Shortened URL of the member's website
+        /// </summary>
+        public string ShortURL { get; set; }
+
+        /// <summary>
+        /// List of any headings (areas of expertise) parsed from the member's website)
+        /// </summary>
+        public List<string> Headings { get; set; }
+
+        /// <summary>
+        /// List of member IDs for any Friends of this member
+        /// </summary>
+        public List<long> Friends { get; set; }
+
+        //TODO: Might want to go ahead and get Member instances for friends too?
     }
 }
