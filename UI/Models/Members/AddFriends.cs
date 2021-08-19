@@ -16,12 +16,14 @@ namespace UI.Models.Members
         /// Primary member ID
         /// </summary>
         [Required(ErrorMessage = "Primary friend is required", AllowEmptyStrings = false)]
+        [Display(Name = "First friend")]
         public long PrimaryID { get; set; }
 
         /// <summary>
         /// Secondary member ID
         /// </summary>
         [Required(ErrorMessage = "Secondary friend is required", AllowEmptyStrings = false)]
+        [Display(Name = "Second friend")]
         public long SecondaryID { get; set; }
 
         /// <summary>

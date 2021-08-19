@@ -212,6 +212,16 @@ namespace UI.Controllers
 
         }
 
+        /// <summary>
+        /// Displays the blank Add friend page
+        /// </summary>
+        /// <returns>The Views.Members.AddFriends page</returns>
+        /// <remars>GET: Members/AddFriends</remars>
+        public ActionResult AddFriends()
+        {
+            return View(new AddFriends());
+        }
+
         //TODO: Add Friends
 
       }

@@ -170,6 +170,7 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\View.cshtml" />
     <Content Include="Views\Members\Add.cshtml" />
+    <Content Include="Views\Members\AddFriends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
